@@ -1,3 +1,7 @@
+/*
+ * Cave of Programming
+ * https://www.youtube.com/watch?v=A0GHaVRlYAQ
+*/
 package pr;
 
 import java.util.HashMap;
@@ -9,7 +13,7 @@ public enum AnimalEnum {
 	private String value;
 	private static final Map<String,AnimalEnum> myMap = new HashMap<String,AnimalEnum>();
 	static {
-		for (AnimalEnum val : values()) {
+		for (AnimalEnum val : AnimalEnum.values()) { //AnimalEnum[] array = AnimalEnum.values();
 			myMap.put(val.getValue(), val);
 		}
 	}

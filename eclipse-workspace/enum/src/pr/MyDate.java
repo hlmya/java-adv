@@ -1,3 +1,7 @@
+/*
+ * JavaAdv exercise - Enumerations
+ * http://kitlei.web.elte.hu/segedanyagok/felev/2018-2019-osz/adv-java/adv-java-exercises.html
+*/
 package pr;
 
 public class MyDate {

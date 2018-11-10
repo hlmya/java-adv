@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <launchConfiguration type="org.eclipse.jdt.launching.localJavaApplication">
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
-<listEntry value="/lambda/src/lambda_p3/ExMain.java"/>
+<listEntry value="/lambda/src/coreservlets_lambda3/ExMain.java"/>
 </listAttribute>
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
 <listEntry value="1"/>
 </listAttribute>
 <booleanAttribute key="org.eclipse.jdt.launching.ATTR_EXCLUDE_TEST_CODE" value="true"/>
-<stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="lambda_p3.ExMain"/>
+<stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="coreservlets_lambda3.ExMain"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="lambda"/>
 </launchConfiguration>

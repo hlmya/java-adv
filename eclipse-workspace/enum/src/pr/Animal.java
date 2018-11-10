@@ -1,3 +1,7 @@
+/*
+ * Cave of Programming
+ * https://www.youtube.com/watch?v=A0GHaVRlYAQ
+*/
 package pr;
 
 public class Animal {
@@ -33,6 +37,15 @@ public class Animal {
 		System.out.println(animal3 instanceof Enum); // true
 		System.out.println(animal3); //CAT
 		System.out.println(animal3.toString()); //CAT
+		
+		/*Retrieval of All Enumerated Values*/
+		AnimalEnum[] array = AnimalEnum.values(); 
+		for (AnimalEnum animalEnum : array) {
+			System.out.println("List of enumerated: " + animalEnum);
+		}
+//		List of enumerated: CAT
+//		List of enumerated: DOG
+//		List of enumerated: MOUSE
 	}
 
 }
