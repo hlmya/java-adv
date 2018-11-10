@@ -2,7 +2,7 @@ package coreservlets_lambda1;
 
 import java.util.Arrays;
 
-public class Lambda1_Ex1 {
+public class Lambda1_ex1 {
 
 	public static void main(String[] args) {
 	    String[] words = { "hi", "hello", "hola", "bye", "goodbye", "adios" };
@@ -36,6 +36,4 @@ public class Lambda1_Ex1 {
 	    System.out.println("Sorted by whether it contains 'e' [v1] : " + Arrays.asList(words));
 	    
 	  }
-
-
 }
