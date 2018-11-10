@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+    code
+    {
+    	font-size: larger;
+    	color: blue;
+    }
+  
+    pre.sourceCode
+    {
+    	margin-left: 3em;
+    	padding: 0.5em;
+  
+    	border: 0.1em green solid !important;
+  
+    }
+  
+  </style>
+</head>
+<body>
+<h1 id="how-to-use-this-zip">How to use this zip</h1>
+<ol style="list-style-type: decimal">
+<li>Extract it to a directory. (I assume you already have.)</li>
+<li>In Eclipse, go to <code>File&gt;Import...&gt;Git&gt;Projects from Git</code>.
+<ul>
+<li>Click <code>Next</code>. Select <code>Existing local repository</code>.</li>
+<li>Click <code>Next</code>. <code>Add</code> the extracted directory. (You may have to explicitly click on <code>Search</code>.)</li>
+<li>Continue to <code>Finish</code>.</li>
+<li>Now you should have an <code>Exam</code> project in your workspace.</li>
+</ul></li>
+<li>Right click on the <code>Exam</code> project, then choose <code>Team&gt;Show in history</code>.
+<ul>
+<li>The <code>History</code> tab now shows a series of 18 commits. The first one is called <code>initial commit</code>.</li>
+<li>The tags <code>mark2</code>..<code>mark5</code> indicate the commit where a new mark was earned.</li>
+<li>You can select any commit, and look at its details. The list of files changed in the commit are listed on the lower right corner. Right click on a file to bring up a menu. Some useful options are:
+<ul>
+<li><code>Compare with previous version</code>.</li>
+<li><code>Open this version</code>: shows the file at the time of the commit.</li>
+<li><code>Open workspace version</code>: shows the final version of the file. (You can also open it in <code>Project explorer</code>.)</li>
+</ul></li>
+<li>You can run <code>MoonMain</code> and <code>RunLoggerServerClient</code>.
+<ul>
+<li><code>RunLoggerServerClient</code> runs <code>MoonLogServer</code>, <code>MoonServer</code> and <code>MoonClient</code>, you can run them separately, too.</li>
+</ul></li>
+</ul></li>
+</ol>
+</body>
+</html>

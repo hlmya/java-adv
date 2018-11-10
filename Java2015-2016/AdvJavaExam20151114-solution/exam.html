@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+    code
+    {
+    	font-size: larger;
+    	color: blue;
+    }
+  
+    pre.sourceCode
+    {
+    	margin-left: 3em;
+    	padding: 0.5em;
+  
+    	border: 0.1em green solid !important;
+  
+    }
+  
+  </style>
+</head>
+<body>
+<h1 id="advanced-java-practical-exam-2015.11.14.">Advanced Java Practical exam, 2015.11.14.</h1>
+<p>Make the class <code>MoonPhase</code> in the package <code>advjava.exam.myName.myCode</code>, where <code>myName</code> and <code>myCode</code> is replaced by your name (without spaces) and Neptun code. All of your classes will have ot be</p>
+<p>You have to solve the exercises in this order: first <a href="#enum">Enum</a>, then <a href="#supplier">Supplier</a>, and then you can choose whether you want to continue with <a href="#aspectsunit-testing">Aspects+Unit testing</a> or <a href="#loggingclient-server">Logging+Client-server</a>. Each fully solved exercise increases your mark by one; you have to solve all of them to get a <code>5</code>.</p>
+<p>Take care to make the code beautiful.</p>
+<ul>
+<li>Use “advanced” constructs in your code whenever possible.</li>
+<li>No warnings, definitely no errors.</li>
+</ul>
+<p>When you’re ready, zip the whole project, and send it to me via e-mail.</p>
+<h1 id="enum">Enum</h1>
+<p>Make an <code>enum</code> called <code>MoonPhase</code> in your package. It will have exactly <code>28</code> elements: <code>PHASE0</code>, <code>PHASE1</code>, …, <code>PHASE27</code>. (Note: the real moon’s period is somewhat longer.)</p>
+<ul>
+<li>Two elements will take a parameter: <code>PHASE0</code> takes the string <code>"New Moon"</code>, and <code>PHASE14</code> takes the string <code>"Full Moon"</code>. All other elements do not take any parameters.</li>
+<li>Make a field <code>phaseName</code> in the enum.
+<ul>
+<li>Fill it with the parameter string for the two named fields, and with <code>"Phase 1"</code>, <code>"Phase 2"</code>, …, <code>"Phase 27"</code> for the other elements.</li>
+<li>Make a getter and a setter for the field.</li>
+</ul></li>
+<li>Make a <code>toString</code> for the class that simply returns the <code>phaseName</code>.</li>
+<li>Make a <code>getPhase</code> operation that takes a <code>String</code> parameter. If the string is <em>not</em> the name of a phase, return an empty <code>Optional</code>, otherwise return one with the appropriate <code>MoonPhase</code>.</li>
+</ul>
+<p>Make a class <code>MoonMain</code> in your package with a <code>main</code>.</p>
+<ul>
+<li>Use <code>getPhase</code> with the strings <code>"Full Moon"</code> and <code>"No Moon"</code> and <code>"Unknown"</code>. Print the results.</li>
+</ul>
+<h1 id="supplier">Supplier</h1>
+<ul>
+<li>In <code>MoonPhase</code>, create the method <code>getSupplier</code>. It takes an array of <code>int</code>s; you can suppose that it is not empty. Let us call this parameter <code>steps</code>. It returns a <code>Supplier</code> of <code>MoonPhase</code>s.
+<ol style="list-style-type: decimal">
+<li>As the first element, the <code>Supplier</code> produces the <code>MoonPhase</code> that the <code>getSupplier</code> method was invoked on.</li>
+<li>As the second element, the <code>Supplier</code> produces the <code>MoonPhase</code> that is <code>steps[0]</code> positions after the first element in the enum.</li>
+<li>As the third element, the <code>Supplier</code> produces the <code>MoonPhase</code> that is <code>steps[1]</code> positions after the second element in the enum.</li>
+<li>Continue producing elements: move by <code>steps[2]</code>, <code>steps[3]</code>, … positions in the enum.
+<ul>
+<li>If the position goes over the last element, start from the beginning of the enum: moving <code>6</code> positions from <code>PHASE25</code> should get <code>PHASE2</code>.</li>
+<li>When you have reached the end of the <code>steps</code> array, continue with <code>steps[0]</code>.</li>
+</ul></li>
+</ol></li>
+<li>In <code>main</code> in <code>MoonMain</code>, use the <code>getSupplier</code> starting from <code>PHASE11</code>, using steps <code>3,6,7</code>. Since it would produce infinitely many values, only take the first <code>10</code>. Print them on a line, separated by commas. The result has to be <code>Phase 11, Full Moon, Phase 20, Phase 27, Phase 2, Phase 8, Phase 15, Phase 18, Phase 24, Phase 3</code>.
+<ul>
+<li>The first element is <code>PHASE11</code>.</li>
+<li>Then we take <code>3</code> steps. We get to <code>PHASE14</code>, which is <code>Full Moon</code>, of course.</li>
+<li>Then we take <code>6</code> steps. <code>14+6=20</code></li>
+<li>Then we take <code>7</code> steps. <code>20+7=27</code></li>
+<li>Restarting from the beginning of <code>steps</code>, we take <code>3</code> steps. <code>27+3=30</code>, which is over <code>28</code>, so we take element <code>30-28=2</code>.</li>
+</ul></li>
+</ul>
+<h1 id="aspectsunit-testing">Aspects+Unit testing</h1>
+<p>Create a class <code>MoonTester</code> in your package. This class will have the following unit tests.</p>
+<ul>
+<li><code>phaseNewMoon</code>: check that invoking <code>getPhase</code> on <code>New Moon</code> returns the proper value</li>
+<li><code>phaseFullMoon</code>: check that invoking <code>getPhase</code> on <code>Full Moon</code> returns the proper value</li>
+<li><code>phaseUnknown</code>: check that invoking <code>getPhase</code> on <code>Unknown</code> returns empty</li>
+<li><code>phaseSupplier</code>: use <code>getSupplier</code> in a similar manner as in <code>MoonMain</code> above
+<ul>
+<li>here, do not turn the produced values into a string; turn them into a list</li>
+<li>check the elements of the list: at least the first, second and last ones</li>
+</ul></li>
+</ul>
+<p>Make an aspect called <code>EvenAspect</code> in your package. (Note:
+ in Eclipse, you will have to your project into an AspectJ project. 
+Right click on the project, and select <code>Configure&gt;Convert to AspectJ project</code>.)</p>
+<p>In the aspect, make an advice that will modify the <code>setPhaseName</code> operation: whenever it is called on a moon phase with an even index (<code>PHASE0</code>, <code>PHASE2</code> etc.), its <code>phaseName</code> has to be set so that it starts with <code>"even "</code>: <code>"even Full Moon"</code>, <code>"even Phase 2"</code> etc., but the names of the odd phases have to remain as they were before: <code>"Phase 1"</code>, <code>"Phase 3"</code> etc.</p>
+<p>The printout in <code>MoonMain</code> now has to change to <code>Phase 11, even Full Moon, even Phase 20, Phase 27, even Phase 2, even Phase 8, Phase 15, even Phase 18, even Phase 24, Phase 3</code>.</p>
+<p>Also, add a static boolean field <code>isActive</code> in <code>EvenAspect</code>. The aspect only has to change the effect of <code>setPhaseName</code> if this field’s value is <code>true</code>.</p>
+<p>Make a version of <code>MoonTester</code> called <code>MoonTesterWithAspects</code>, which should have all cases green if the aspect is active.</p>
+<h1 id="loggingclient-server">Logging+Client-server</h1>
+<p>Make two classes in your package: a <code>MoonServer</code> and a <code>MoonClient</code>. They will communicate with each other via <code>Object(In/Out)putStream</code>s.</p>
+<h2 id="server">Server</h2>
+<p>The server starts up at port <code>12345</code>, and waits for connections. The incoming connections will be handled one after the other.</p>
+<p>When a client connects to the server, it sends three objects to the server.</p>
+<ul>
+<li>the name of a phase as a string</li>
+<li>the steps as an array of ints</li>
+<li>the step count as an Integer</li>
+</ul>
+<p>The server finds the moon phase by its name, and uses <code>getSupplier</code> to take the given number of steps. Then it sends the resulting list of moon phases to the client as an object.</p>
+<h2 id="client">Client</h2>
+<p>The client reads a file that is formatted like this example.</p>
+<pre><code>Phase 27;3,5;4
+Full Moon;1;27
+New Moon;27;27
+Unknown;1;1</code></pre>
+<p>Each line contains three bits of information separated by semicolons: the infos to be sent to the server. (Note: you can use <code>String.split</code>
+ to separate the data.) Make three objects out of them (in the format 
+that the server expects them), and then receive the server’s answer, and
+ print it.</p>
+<p>For the above example, the client printout has to be the following.</p>
+<pre><code>[Phase 27, Phase 2, Phase 7, Phase 10]
+[Full Moon, Phase 15, Phase 16, Phase 17, Phase 18, Phase 19, Phase 20, Phase 21, Phase 22, Phase 23, Phase 24, Phase 25, Phase 26, Phase 27, New Moon, Phase 1, Phase 2, Phase 3, Phase 4, Phase 5, Phase 6, Phase 7, Phase 8, Phase 9, Phase 10, Phase 11, Phase 12]
+[New Moon, Phase 27, Phase 26, Phase 25, Phase 24, Phase 23, Phase 22, Phase 21, Phase 20, Phase 19, Phase 18, Phase 17, Phase 16, Phase 15, Full Moon, Phase 13, Phase 12, Phase 11, Phase 10, Phase 9, Phase 8, Phase 7, Phase 6, Phase 5, Phase 4, Phase 3, Phase 2]
+[]</code></pre>
+<h2 id="logging">Logging</h2>
+<p>Using <code>java.util.logging</code>, add a static <code>Logger</code> field to <code>MoonServer</code>. This logger should not print anything into the console; it has to print its messages into the file <code>server.log</code>.</p>
+<p>When the server is responding to the client, log the textual form of the answer (a list of moon phases) at the <em>info</em> level.</p>
+<p>(The following bit is only required if you want a <code>5</code>, the top mark.)</p>
+<p>Make a class <code>MoonLogServer</code> that contains an extremely simple, textual server on port <code>12346</code>: it receives one connection, and it prints the received lines to its standard output.</p>
+<p>The <code>Logger</code> in <code>MoonServer</code> now has to send the logs not only to <code>server.log</code>, but also to <code>MoonLogServer</code>. For this purpose, use <code>java.util.logging.SocketHandler</code>.</p>
+
+
+</body></html>
