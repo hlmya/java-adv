@@ -13,7 +13,7 @@ public class JavaExercises {
 		
 //		example1(); //Print 10 weekdays with Supplier
 //		example2(); //Print 10 weekdays with Supplier - way 2 without lambda
-		solution1(WeekDay.SUN, 2); //Print weekdays after starting day with n days
+//		solution1_1(WeekDay.MON, 2); //Print weekdays after starting day with n days(Mon-7 days: Mon)
 		
 		
 	}
@@ -21,7 +21,7 @@ public class JavaExercises {
 	/**
 	 * Print weekdays after starting day with n days
 	 */
-	private static void solution1(WeekDay start, int n) {
+	private static void solution1_1(WeekDay start, int n) {
 		Function<WeekDay, Supplier<WeekDay>> f = (startingDay) -> new Supplier<WeekDay>() {
 			int idx = startingDay.ordinal();
 			int len = WeekDay.values().length;
@@ -31,6 +31,13 @@ public class JavaExercises {
 				return WeekDay.values()[idx % len];
 			}
 		};
+		
+		Supplier<WeekDay> getWeekDay = f.apply(start);
+		WeekDay result = null;
+		for (int i = 0; i < n; i++) { // Monday - 7days : Monday
+			result = getWeekDay.get();
+		}
+		System.out.println(start + "-" + n + " days after: " + result);
 	}
 
 	/**
