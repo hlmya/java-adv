@@ -1,9 +1,14 @@
 package pr;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.IntBinaryOperator;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 enum WeekDay {
 	MON, TUE, WED, THU, FRI, SAT, SUN
@@ -17,9 +22,69 @@ public class JavaExercises {
 //		solution1_1(WeekDay.FRI, 0); //Print weekdays after starting day with n days(Mon-7 days: Mon)
 //		solution1_1_bifunction();
 //		solution1_2(); // which one is earlier
+//		solution2();
+//		solution3();
+
+	}
+	/**
+	 * Sort the command line arguments so that those arguments 
+	 * that contains names of weekdays come first.
+	 */
+	private static void solution3() {
+		List<String> weekdays = Arrays.asList("mon","tue","wed","thu","fri","sat","sun");
+		String[] texts = {"haha","mon","dsaxfdsa", "tue","aaabce","h"};
 		
+		Arrays.sort(texts, (s1,s2) -> {
+			if(weekdays.contains(s1) && !weekdays.contains(s2)) {
+				return -1;
+			}else if(!weekdays.contains(s1) && weekdays.contains(s2)) {
+				return 1;
+			}else {
+				return 0;
+			}
+		});
+		
+		System.out.println(Arrays.asList(texts));
+	}
+	//========= beginning of solution 2
+	/**
+	 * Sort the command line arguments based on the number of 'a' characters in them.
+	 */
+	private static void solution2() {
+		//way1 - String[]
+		String[] texts = {"a","bxxd","dsaxfdsa", "fwegse","aaabce","h"};
+		//Arrays.asList(texts).forEach(System.out::println); //print if texts is String[]
+		
+		Arrays.sort(texts, Comparator.comparing(JavaExercises::countCharsInString));
+		Arrays.asList(texts).forEach(System.out::println);
+		System.out.println("===");
+		//OR
+		
+		Function<Character, Comparator<String>> makeComparator =
+				ch -> Comparator.comparing(s -> countCharsInString(s, ch));
+		Arrays.sort(texts, makeComparator.apply('a')); // if texts is String[]
+		Arrays.asList(texts).forEach(System.out::println);
+		System.out.println("===========");
+		
+		//way2 - List<String>
+		List<String> textlist = Arrays.asList("a","bxxd","dsaxfdsa", "fwegse","aaabce","h");
+		//System.out.println(textlist); // print if texts is List<String>
+		
+		Collections.sort(textlist, makeComparator.apply('a')); // if texts is List<String>
+		System.out.println(textlist);
+	}
+	private static Integer countCharsInString(String s) {
+		return countCharsInString(s, 'a');
 	}
 
+	private static Integer countCharsInString(String s, char checked) {
+		int retval = 0;
+		for (char c : s.toCharArray()) {
+			if (c == checked)   ++retval;
+		}
+		return retval;
+	}
+	//================= end of 2
 	/**
 	 * Make a lambda that takes two weekdays, 
 	 * and returns whether the first one is earlier in the week than the second one.
