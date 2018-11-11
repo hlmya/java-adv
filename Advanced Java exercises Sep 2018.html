@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Advanced Java exercises</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+  <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Lobster|Alegreya|Fjalla+One" />
+  <style type="text/css">
+  pre > code
+  {
+      all: unset;
+  }
+  
+  code
+  {
+      color: blue;
+      font-size: 14px;
+      white-space: pre;
+      border-radius: 3px;
+      font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
+      padding: 2px 4px;
+  
+      display: inline-block;
+  
+      background-image: radial-gradient(ellipse farthest-corner at 50% 50%, #e4e4e4, #ffffff);
+  }
+  
+  
+  pre
+  {
+    	margin-left: 3em;
+    	padding: 0.5em;
+  
+    	border: 0.1em green solid !important;
+  
+      display: inline-block;
+  }
+  
+  table {
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 24px;
+      border-spacing: 0;
+      border-bottom: 2px solid black;
+      border-top: 2px solid black;
+      width: auto !important;
+  }
+  
+  table th {
+      padding: 3px 10px;
+      background-color: white;
+      border-top: none;
+      border-left: none;
+      border-right: none;
+      border-bottom: 1px solid black;
+  }
+  
+  table td {
+      padding: 3px 10px;
+      border-top: none;
+      border-left: none;
+      border-bottom: none;
+      border-right: none;
+  }
+  
+  
+  h1 {
+      counter-reset: h2counter;
+      font-family: Lobster, Fallback, sans-serif;
+  }
+  h2 {
+      font-family: Alegreya, Fallback, sans-serif;
+      counter-increment: h2counter;
+      counter-reset: h3counter;
+  }
+  h2:before {
+      content: counter(h2counter) ".\0000a0\0000a0";
+  }
+  h3 {
+      counter-increment: h3counter;
+      font-family: Alegreya, Fallback, sans-serif;
+  }
+  h3:before {
+      content: counter(h2counter) "." counter(h3counter) ".\0000a0\0000a0";
+  }
+  
+  
+  nav#TOC:before {
+      content: "Table of contents";
+      background: lightgreen;
+      font-family: Fjalla One, Fallback, sans-serif;
+      padding: 0.2em;
+  }
+  
+  nav#TOC {
+      float: right;
+      clear: both;
+      bottom: 0;
+      background-color:#FFF;
+      overflow: auto;
+      border: 1px solid green;
+  
+      font-family: Alegreya, Fallback, sans-serif;
+  }
+  
+  tr:nth-child(2n) {
+      background: #F0F0F0;
+  }
+  </style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Advanced Java exercises</h1>
+</header>
+<nav id="TOC">
+<ul>
+<li><a href="#theory-slides">Theory slides</a></li>
+<li><a href="#enumerations">Enumerations</a></li>
+<li><a href="#anonymous-functions-lambda-functions">Anonymous functions (Lambda functions)</a></li>
+<li><a href="#streams">Streams</a></li>
+<li><a href="#unit-testing">Unit testing</a></li>
+<li><a href="#serialization">Serialization</a></li>
+<li><a href="#sockets">Sockets</a></li>
+<li><a href="#threading">Threading</a><ul>
+<li><a href="#sockets-with-threading">Sockets with threading</a></li>
+</ul></li>
+</ul>
+</nav>
+<h1 id="theory-slides">Theory slides</h1>
+<p>The following are links to slideshows that summarise the covered topics.</p>
+<ul>
+<li><a href="http://www.csee.umbc.edu/courses/undergraduate/202/spring12/lectures/enums.pdf">enumerations</a></li>
+<li><a href="http://www.coreservlets.com/java-8-tutorial/">lambdas and streams</a></li>
+<li><a href="https://junit.org/junit5/docs/current/user-guide/">unit testing: the documentation of JUnit</a>.</li>
+<li><a href="http://hep.fi.infn.it/JAVA6.pdf">IO, serialization, persistence</a></li>
+<li><a href="https://www.slideshare.net/tusharkute/network-programming-in-java">network programming</a>; <a href="https://slideplayer.com/slide/5150902/">another slideshow</a></li>
+<li><a href="https://courses.cs.washington.edu/courses/cse373/13wi/lectures/03-15/27-concurrency.ppt">concurrency, parallelism</a></li>
+<li><a href="http://kto.web.elte.hu/hu/oktatas/aop_en.pdf">aspects</a></li>
+<li><a href="https://www.cis.upenn.edu/~matuszek/cit597-2009/Lectures/31-logging.ppt">logging</a></li>
+<li><a href="https://profs.info.uaic.ro/~acf/java/slides/en/reflection_slide_en.pdf">reflection, annotation, classloader</a></li>
+<li><a href="http://www.cvc.uab.es/shared/teach/a21291/temes/i18n/slides/handouts/i18n.pdf">i18n</a></li>
+</ul>
+<h1 id="enumerations">Enumerations</h1>
+<p>Create a class with a <code>main</code> method. For all of the exercises below, put code in <code>main</code> that tests the new content.</p>
+<ol type="1">
+<li>Create a <code>MyDate</code> class
+<ol type="a">
+<li>In it, create <code>enum</code>s <code>Month</code> and <code>Weekday</code></li>
+</ol></li>
+<li>Create methods
+<ol type="a">
+<li>Names
+<ol type="i">
+<li><code>Month::getEnglishName</code>
+<ol type="i">
+<li><code>Month::getHunName</code>,</li>
+<li><code>Month::getXName</code> (where <code>X</code> is your favourite language),</li>
+<li>replace the above methods using an <code>enum Language</code></li>
+<li>make similar methods for <code>Weekday</code>s</li>
+</ol></li>
+</ol></li>
+<li><code>MyDate::getWeekDay</code></li>
+<li><code>Weekday::isThisDay(Month month, int day)</code></li>
+</ol></li>
+<li>Write Javadoc documentation for the methods</li>
+</ol>
+<h1 id="anonymous-functions-lambda-functions">Anonymous functions (Lambda functions)</h1>
+<p>In the following exercises, it is your job to decide which (built-in) lambda to use. The most common choices are listed here, and you can also have a look at the <a href="https://docs.oracle.com/javase/10/docs/api/java/util/function/package-summary.html">documentation of the <code>java.util.function</code> package</a>.</p>
+<ul>
+<li><code>Runnable</code>: Ø → Ø</li>
+<li><code>Consumer</code>: T → Ø</li>
+<li><code>IntConsumer</code>: int → Ø</li>
+<li><code>Supplier</code>: Ø → T</li>
+<li><code>Function</code>: <span class="math inline"><em>T</em><sub>1</sub></span> → <span class="math inline"><em>T</em><sub>2</sub></span></li>
+<li><code>IntFunction</code>: int → T</li>
+<li><code>IntUnaryOperator</code>: int → int</li>
+<li><code>BiFunction</code>: (<span class="math inline"><em>T</em><sub>1</sub></span>, <span class="math inline"><em>T</em><sub>2</sub></span>) → <span class="math inline"><em>T</em><sub>3</sub></span></li>
+<li><code>IntBinaryOperator</code>: (int, int) → int</li>
+<li><code>Predicate</code>: T → boolean</li>
+</ul>
+<ol type="1">
+<li>Have some fun with the previously created enums.
+<ul>
+<li>Make a lambda that takes a day of the week and a number <code>n</code>, and returns the weekday that is <code>n</code> days after the other one. Keep in mind that <code>n</code> can be a big number, or a negative one.</li>
+<li>Make a lambda that takes two weekdays, and returns whether the first one is earlier in the week than the second one.</li>
+<li>Make a lambda that, when called, returns a day of the week; when called again and again, it produces the days of the week in order. If called even more times, it starts at the first day again.
+<ul>
+<li>Make a lambda that returns a lambda like the previous one. The “outer” lambda gets a day of the week as a parameter; the returned lambda starts from that day.</li>
+</ul></li>
+</ul></li>
+<li>Sort the command line arguments based on the number of <code>'a'</code> characters in them.</li>
+<li>Sort the command line arguments so that those arguments that contains names of weekdays come first.</li>
+<li>Create the method <code>createArray</code> that fills in an array. It takes the length of the array as an argument, and an <code>int→int</code> function <code>f</code>. Use the <code>f</code> function on each index of the array, and it will produce the value for the index.
+<ul>
+<li>Make an array of arrays in a similar way. Here, the function has to take two arguments for the two indices.</li>
+<li>Can you make <code>createArray</code> generate an array of arbitrary depth?</li>
+</ul></li>
+<li>Create the method <code>compose</code> that takes two functions and returns their <a href="https://en.wikipedia.org/wiki/Function_composition">composition</a>, which is another function.</li>
+<li>Create the method <code>iterate</code> that takes a function <code>f</code> and a (non-negative) integer <code>n</code> and returns a function that <a href="https://en.wikipedia.org/wiki/Iterated_function">iterates</a> <code>f</code> <code>n</code> times.</li>
+<li>Create the method <code>geneticAlgorithm</code> that runs a <a href="https://en.wikipedia.org/wiki/Genetic_algorithm">genetic algorithm</a>.
+<ul>
+<li>The goal of the algorithm is to find an approximate solution to a problem by making “educated guesses”.</li>
+<li>The algorithm will work on an <code>Entity</code> class.</li>
+<li>The algorithm takes a number of arguments. Most of these are lambdas.
+<ol type="1">
+<li>First, <code>populationCount</code> entities are created using <code>createRandomEntity()</code>.</li>
+<li>Then, <code>doCrossover(Entity e1, Entity e2)</code> is invoked on two random entities. This is repeated <code>crossoverCount</code> times.</li>
+<li>Then, <code>mutateEntity(Entity e)</code> is invoked on a randomly selected entity. The method, with <code>mutationProbability</code> probability will change the entity in some way.
+<ul>
+<li>Usually, <code>mutationProbability</code> is quite low, perhaps 0.1%.</li>
+</ul></li>
+<li>Then, <code>calculateFitness(Entity e)</code> calculates the fitness of each entity. We only keep the best <code>pruneCount</code> entities; we fill up the remaining places with <code>createRandomEntity()</code>.</li>
+<li>So far, we have generated a new generation out of the previous one. We repeat these steps <code>generationCount</code> times, then return with the entity with the highest finess value of the last generation.</li>
+</ol></li>
+<li>Let us see how well the genetic algorithm can crack a code. Call the algorithm the following way.
+<ul>
+<li>Write some text into a <code>String</code>, this will be the <code>code</code> to crack.
+<ul>
+<li>You may limit your strings to lowercase English characters in this exercise.</li>
+</ul></li>
+<li>The <code>Entity</code> class will contain a <code>String</code> now.</li>
+<li>The fitness value of an <code>Entity</code> shows how far its <code>String</code> is from the <code>code</code>.
+<ul>
+<li>Compute the fitness of an <code>Entity</code> like this: add the difference of the lengths of the strings, plus the number of differing character positions.</li>
+<li>With this formula, the best fitness value is <code>0</code>, which is reached when we have reached the <code>code</code>.</li>
+</ul></li>
+<li>A crossover between two <code>Entity</code>s splits both strings at random positions, and joins their first and second parts.</li>
+<li>A mutation changes a random character in the string of the <code>Entity</code>.</li>
+<li>Run the genetic algorithm a couple of times, and see whether it can crack the code.
+<ul>
+<li>Experiment with different values for the parameters.</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ol>
+<h1 id="streams">Streams</h1>
+<ol type="1">
+<li>Print the lengths of the command line arguments in reverse order.</li>
+<li>Print the sum of even numbers that are greater than <code>8</code> from the command line arguments.
+<ul>
+<li>Variant: ignore all texts that are not numbers.</li>
+<li>Variant: using a lambda, take the condition as an argument. So, instead of testing for “greater than <code>8</code>”, test whatever the caller specifies.</li>
+</ul></li>
+<li>Make a method that generates a stream of the first <code>n</code> prime numbers.</li>
+<li>Given some filenames in the command line arguments, print the names on one line, separated with commas, in descending order in the number of lines in the file. If two files have the same number of lines, then the one with more words on its first line should come first.</li>
+</ol>
+<h1 id="unit-testing">Unit testing</h1>
+<p>In the following exercises, test the described functions. Try everything covered in the lecture: descriptions, parameters etc. For each exercise, make several small test cases.</p>
+<ol type="1">
+<li>Make a function <code>summer</code> that sums the numbers between its two arguments by adding them together one by one.</li>
+<li>Make a function <code>shortSummer</code> that sums the numbers between its two arguments with a formula.</li>
+<li>Make a function that takes an English–Hungarian dictionary represented as a <code>Map</code> and a text in English. The function will translate the text word by word, and inserts “?” for all words not in the dictionary.
+<ul>
+<li>You may use different languages if you wish.</li>
+</ul></li>
+<li>Test the lambda that produces the first <code>n</code> primes.
+<ul>
+<li>If <code>n</code> is negative, the lambda should throw an <code>IllegalArgumentException</code>. Find out how that can be done, then test for the exception.</li>
+</ul></li>
+<li>Test the lambda that gets a weekday, and returns the weekday <code>n</code> days after that. Use parameters from a <code>@CsvSource</code> or <a href="https://junit.org/junit5/docs/current/user-guide/#writing-tests-parameterized-tests-sources">any other source</a>.</li>
+<li>Create the class <code>Battleship</code> that represents a state of <a href="https://en.wikipedia.org/wiki/Battleship_(game)">the Battleship game</a>.
+<ul>
+<li>In it, create the methods <code>shoot</code>, <code>hitCount</code> and <code>safeCount</code>.</li>
+<li>Also add any constructors, methods etc. you feel necessary.</li>
+<li>Test them using <a href="https://junit.org/junit5/docs/current/user-guide/#writing-tests-nested">nested tests</a>.</li>
+</ul></li>
+<li>Make a method that takes a file name and an arbitrary number of arguments, and prints the sum of the numbers into the file.
+<ul>
+<li>Test whether the file is present, and if it is, test the contents of the file.</li>
+<li>Make sure you delete the file at the end of each test case.</li>
+</ul></li>
+<li>Change <code>geneticAlgorithm</code> so that it also takes an individual as a parameter.
+<ul>
+<li>This individual should always be a member of the population. That is, it should not be thrown out even if its fitness is too low.</li>
+</ul></li>
+<li>Check with JUnit that the return value of <code>geneticAlgorithm</code> contains at least one individual whose fitness value is not less than that of this individual.
+<ol type="a">
+<li>Extract the body of the loop in <code>geneticAlgorithm</code> into a separate function. Make a JUnit test that checks that the size of the population at the beginning of every loop iteration equals <code>populationCount</code> (the first parameter of <code>geneticAlgorithm</code>).</li>
+</ol></li>
+</ol>
+<h1 id="serialization">Serialization</h1>
+<p>Make a serializable class <code>Book</code> that contains the following information:</p>
+<ul>
+<li><code>title</code></li>
+<li><code>author</code></li>
+<li><code>year</code></li>
+<li><code>pages</code></li>
+</ul>
+<p>The class <code>BookStore</code> stores books in a <code>Map</code>, identifying them by their names. The class implements the following methods.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode java"><code class="sourceCode java"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="co">// Puts some predefined books into the map, to serve as initial data.</span></a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="dt">void</span> <span class="fu">addSomeBooks</span>();</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="co">// Writes the books into the given file using serialization.</span></a>
+<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="co">// Returns whether the save operation was successful.</span></a>
+<a class="sourceLine" id="cb1-6" data-line-number="6"><span class="dt">boolean</span> <span class="fu">saveBooks</span>(<span class="bu">String</span> fileName);</a>
+<a class="sourceLine" id="cb1-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb1-8" data-line-number="8"><span class="co">// Loads the books from the given file.</span></a>
+<a class="sourceLine" id="cb1-9" data-line-number="9"><span class="co">// Returns whether the load operation was successful.</span></a>
+<a class="sourceLine" id="cb1-10" data-line-number="10"><span class="dt">boolean</span> <span class="fu">loadBooks</span>(<span class="bu">String</span> fileName);</a></code></pre></div>
+<p>Make a simple application that tests the above operations.</p>
+<h1 id="sockets">Sockets</h1>
+<ol type="1">
+<li>Make a simple client-server application whose parts communicate using serialization. Use the <code>Book</code> and <code>BookStore</code> classes from the previous exercise.
+<ul>
+<li>When the client connects, the server does the following.
+<ol type="1">
+<li>Takes the name of a book from the client.</li>
+<li>Creates a <code>BookStore</code>.</li>
+<li>Tries to load the books from a file.
+<ul>
+<li>If unsuccessful, the store is initialised using <code>addSomeBooks</code>.</li>
+</ul></li>
+<li>Looks up the requested book by name in the store.
+<ol type="a">
+<li>If found, sends <code>true</code> to the client, then the book itself.</li>
+<li>Otherwise, sends <code>false</code> to the client.</li>
+</ol></li>
+<li>Saves the books to the file.</li>
+</ol></li>
+<li>The client connects to the server, and takes the appropriate steps, mirroring the server.</li>
+</ul></li>
+<li>Make the previous server should accept clients one after the other.
+<ul>
+<li>At the same time, only one client is connected.</li>
+<li>When the client disconnects, the server starts waiting for another client.</li>
+</ul></li>
+<li>Create a server that receives numbers (as text) from the client. When the client is done sending numbers, the server sends the client their sum, then they disconnect.</li>
+<li>Create a server that uses text messages to communicate with the client. The client sends the name of a file; if it exists, the server sends back its contents.
+<ol type="a">
+<li>Let the client send many file names. The server sends back the contents of all existing files.</li>
+</ol></li>
+<li>Create a server that remembers how many clients have connected to it so far, and sends this number in a text message to the client. The client receives this number and prints it, but it doesn’t send any messages to the server.</li>
+</ol>
+<h1 id="threading">Threading</h1>
+<ol type="1">
+<li>Make two threads that each use <code>System.out.println</code> to print a given text <code>10000</code> times. (Give different texts to the threads.)
+<ul>
+<li>Notice how the printouts are interleaved.</li>
+</ul></li>
+<li>Now, instead of <code>println</code>, print each text character by character (and an ending newline).
+<ul>
+<li>What happens to the printout?</li>
+<li>Use synchronization to fix the issue.</li>
+</ul></li>
+<li>Two goats are trying to cross a narrow bridge from opposite sides. They meet in the middle, and they start pushing each other. Independently of each other, the goats take some time, and then push the other goat one step. Whenever one of the goats is pushed off of the bridge, the game ends. Take the speed of the goats (how much they wait between pushes) and the length of the bridge as parameters; make the program log important actions.</li>
+<li>Compute the <code>n</code>th <a href="https://en.wikipedia.org/wiki/Fibonacci_number">Fibonacci number</a> so that the non-basic cases compute the two halves of the addition on two separate threads.</li>
+</ol>
+<h2 id="sockets-with-threading">Sockets with threading</h2>
+<p>In each of the following exercises, communication can be text based or binary based, it’s your choice.</p>
+<ol type="1">
+<li>Make a TCP/IP server that can handle several clients: after <code>accept</code>ing them, each connection is handled by a separate thread.
+<ul>
+<li>The program works like this: the client sends a number, and the server replies with the corresponding Fibonacci number.</li>
+<li>Make sure to use an <em>inefficient</em> Fibonacci implementation so that it takes long, or add a delay (<code>Thread.sleep</code>).</li>
+</ul></li>
+<li>Make a server to which any number of clients can connect. Whenever a client sends a text message, it is immediately sent to all other (currently connected) clients.</li>
+<li>Make a program that simulates a stock market. It has two ports: regular clients connect to the first port, admins to the second one.
+<ul>
+<li>Admins can set the value of stocks. Stocks are identified by their names.</li>
+<li>Regulars can query stock prices, and buy and sell stocks.
+<ul>
+<li>For added difficulty, you can let the clients also trade stocks with each other (for money or for other stocks).</li>
+</ul></li>
+<li>It is up to you to decide the details of the protocol.</li>
+</ul></li>
+</ol>
+<!-- 
+## Producer-consumer
+
+Here is a simplistic description of [the producer-consumer problem](http://www.java-samples.com/showtutorial.php?tutorialid=306). Read more on [the pitfalls of the simplistic solution](http://javarevisited.blogspot.hu/2015/07/how-to-use-wait-notify-and-notifyall-in.html) (no loop for the condition, using `notify` instead of `notifyAll`).
+
+Use `wait` and `notifyAll` in the following exercises.
+
+1. Make two producer threads that each read words from a file.
+   The producer threads produce a word in random intervals, waiting `300`-`2500` msec between each.
+   Make a consumer thread that takes two words (one from each producer),
+   and writes them into a file.
+    a. Extend the previous exercise so that there are `n` producers and `n` files.
+    a. Extend the previous exercise so that there are `m` consumers.
+        i. The consumers **are** racing each other: each `n`-tuple of produced words
+           will be taken by only one consumer.
+        i. The consumers are **not** racing each other: each `n`-tuple of produced words
+           will be taken by all consumers.
+1. Make a program for the [dining philosophers](http://en.wikipedia.org/wiki/Dining_philosophers_problem).
+   Try to work out a solution before reading up on possible solutions.
+
+# Aspects
+
+1.  Make an aspect `PrintFirstArgs` that is activated when
+    a method in class `Test` is called that has at least one parameter.
+    The aspect should print the first parameter's value on the command line.
+    - What happens if you direct your advice in the aspect towards any class instead of limiting it to `Test`?
+1.  Using the `CallerCallee` aspect,
+    count how many method calls in the code is such that
+    the caller object and the callee object are the same.
+    For each such call, print the counter's current value to the standard output.
+1.  Make an aspect `ExceptionLog` that logs into a file
+    each exception that the program throws.
+    The caller object and the exception instance should be printed into the file
+    on each throw.
+1. Implement an [AVL tree](https://en.wikipedia.org/wiki/AVL_tree) data structure,
+   or, if you are feeling adventurous, a [red-black tree](http://en.wikipedia.org/wiki/Red%E2%80%93black_tree) (another description [is here](http://www.unf.edu/~wkloster/3540/wiki_book2.pdf), but don't look at the example codes) data structure.
+  - Use a template argument for the tree elements; note that it has to be _comparable_.
+
+
+# Logging
+
+
+1. Change `checkGen` (in `TransitionGame`) to log all of the values that it progresses through.
+  a. Go back to the original `checkGen`, and make an aspect
+    that will take care of the logging.
+    Use a data field in `TransitionGame` to store the most recently checked value.
+  b. Make the code so that the value progression
+    of each run of the `checkGen` are logged separately.
+    Produce a file that contains the progressions
+    with the accepted runs first,
+    and then the rejected runs afterwards;
+    in both parts, the progressions should be ordered by the number of progression steps.
+
+ -->
+</body>
+</html>
