@@ -2,6 +2,7 @@ package pr;
 
 import java.util.function.BiFunction;
 import java.util.function.Function;
+import java.util.function.IntBinaryOperator;
 import java.util.function.Supplier;
 
 enum WeekDay {
@@ -13,13 +14,55 @@ public class JavaExercises {
 		
 //		example1(); //Print 10 weekdays with Supplier
 //		example2(); //Print 10 weekdays with Supplier - way 2 without lambda
-//		solution1_1(WeekDay.MON, 2); //Print weekdays after starting day with n days(Mon-7 days: Mon)
-		
+//		solution1_1(WeekDay.FRI, 0); //Print weekdays after starting day with n days(Mon-7 days: Mon)
+//		solution1_1_bifunction();
+//		solution1_2(); // which one is earlier
 		
 	}
 
 	/**
-	 * Print weekdays after starting day with n days
+	 * Make a lambda that takes two weekdays, 
+	 * and returns whether the first one is earlier in the week than the second one.
+	 */
+	private static void solution1_2() {
+		BiFunction<WeekDay, WeekDay, Boolean> isBefore = (d1,d2) -> d1.ordinal() < d2.ordinal();
+		System.out.println(isBefore.apply(WeekDay.TUE, WeekDay.WED));
+	}
+
+	/**
+	 * Sol with BiFunction
+	 * Make a lambda that takes a day of the week and a number n, and returns the
+	 * weekday that is n days after the other one.
+	 * Keep in mind that n can be a big number, or a negative one.
+	 */
+	private static void solution1_1_bifunction() {
+		BiFunction<WeekDay, Integer, WeekDay> nafter = (start,n) -> {
+			IntBinaryOperator getIndex = (startingIdx, num) -> {
+				int len = WeekDay.values().length;
+				int idx = startingIdx;
+				
+				if(num > 0) {
+					idx = (startingIdx + num) % len;
+				}else if(num <0) {
+					for (int i = 0; i > num; i--) {
+						idx--;
+						if(idx == -1) {
+							idx = 6;
+						}
+					}
+				}
+				return idx;
+			};
+			return WeekDay.values()[getIndex.applyAsInt(start.ordinal(), n)];
+		};
+		System.out.println(nafter.apply(WeekDay.MON, 16));
+		System.out.println(nafter.apply(WeekDay.MON, -2));
+	}
+
+	/**
+	 * Make a lambda that takes a day of the week and a number n, and returns the
+	 * weekday that is n days after the other one.
+	 * Keep in mind that n can be a big number, or a negative one.
 	 */
 	private static void solution1_1(WeekDay start, int n) {
 		Function<WeekDay, Supplier<WeekDay>> f = (startingDay) -> new Supplier<WeekDay>() {
@@ -34,10 +77,19 @@ public class JavaExercises {
 		
 		Supplier<WeekDay> getWeekDay = f.apply(start);
 		WeekDay result = null;
-		for (int i = 0; i < n; i++) { // Monday - 7days : Monday
-			result = getWeekDay.get();
+		
+		if (n < 0) {
+			for (int i = 0; i < (7 - (Math.abs(n))%7); i++) { // Monday - 7days : Monday
+				result = getWeekDay.get();
+			}
+		}else if(n > 0){
+			for (int i = 0; i < n; i++) { // Monday - 7days : Monday
+				result = getWeekDay.get();
+			}
+		}else { // n = 0
+			result = start;
 		}
-		System.out.println(start + "-" + n + " days after: " + result);
+		System.out.println("("+start + "," + n + "): " + result);
 	}
 
 	/**
