@@ -3,6 +3,12 @@ package pr;
 import java.io.Serializable;
 
 public class Book implements Serializable  {
+	/**
+	 * local class serialVersionUID
+	 * use to check with stream classdec serialVersionUID when it converts from 
+	 */
+	private static final long serialVersionUID = 3467290981571565012L;
+	
 	private String title;
 	private String author;
 	

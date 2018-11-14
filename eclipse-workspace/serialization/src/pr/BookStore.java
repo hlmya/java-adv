@@ -31,7 +31,7 @@ public class BookStore {
 		try(FileOutputStream fos = new FileOutputStream(fileName)) {
 			ObjectOutputStream oos = new ObjectOutputStream(fos);
 			
-			oos.writeObject(bookMap);
+			oos.writeObject(bookMap);// bookMap is an object so use writeObject()
 			
 			oos.close();
 		} catch (FileNotFoundException e) {

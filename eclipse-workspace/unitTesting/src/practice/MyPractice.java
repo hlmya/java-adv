@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -140,16 +141,10 @@ public class MyPractice {
 //							.mapToInt(e->e)
 							.sum();
 		
-//		File file = new File("C:/Users/Me/Desktop/directory/file.txt");
-		FileOutputStream out = new FileOutputStream("C:/Users/MyAnh/Desktop/"+ fileName);
-		try {
-			out.write(sumResult);
-		} finally {
-			out.close();
-		}
-		
-		
-	
+		FileWriter fw=new FileWriter(new File(fileName));
+		fw.write(sumResult+"");
+		fw.flush();
+		fw.close();
 	}
 	
 	 

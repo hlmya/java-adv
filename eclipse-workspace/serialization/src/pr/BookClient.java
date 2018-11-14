@@ -8,7 +8,7 @@ public class BookClient {
 	public static void main(String[] args) throws Exception {
 		try (
 			// Create socket object
-			Socket socket = new Socket("127.0.0.1", 2);
+			Socket socket = new Socket("127.0.0.1", 2);// IP: "127.0.0.1"; PORT: 2
 				
 			//Create I/O streams for communicating with the server
 			ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());

@@ -12,6 +12,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -68,12 +69,12 @@ class MyPracticeTest {
 //		List<String> expected = new ArrayList<>();
 //		expected.add();
 //			{WeekDay.Tue, WeekDay.Wed, WeekDay.Thu, WeekDay.Fri};
-		assertEquals(WeekDay.Fri, MyPractice.printWeekDay(WeekDay.Mon, 3));
+		assertEquals(WeekDay.Thu, MyPractice.printWeekDay(WeekDay.Mon, 3));
 	}
 	
-//	@Test
-//	@DisplayName("Test the file is present")
-//	void testFile() throws IOException {
+	@Test
+	@DisplayName("Test the file is present")
+	void testFile() throws IOException {
 //		String fileName = "test.txt";
 //		MyPractice.fileHandler(fileName,1,2,3,4,5);
 //		File file = new File(fileName);
@@ -84,5 +85,15 @@ class MyPracticeTest {
 //					
 //				}
 //				);
-//	}
+		
+		int[] a = {1,2,3,4,5};
+		MyPractice.fileHandler("testFile.txt", a);
+		File file =new File("testFile.txt");
+		assertAll( () -> {
+			assertTrue(file.exists());
+			Scanner in=new Scanner(file);
+			assertEquals(15,Integer.parseInt(in.nextLine()));
+			in.close();
+		});
+	}
 }

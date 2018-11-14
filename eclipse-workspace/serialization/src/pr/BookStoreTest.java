@@ -23,7 +23,8 @@ class BookStoreTest {
 		
 		BookStore store2 = new BookStore();
 		store2.loadBooks("helloBooks.bin");
-		//
+		
+		// Check whether book is existing or not
 		Optional<Book> b = store2.get("Math");
 		assertTrue(b.isPresent());
 		assertEquals("Anh", b.get().getAuthor());
