@@ -1,4 +1,4 @@
-package stream_p1;
+package coreservlets_stream;
 
 import java.util.Arrays;
 import java.util.List;

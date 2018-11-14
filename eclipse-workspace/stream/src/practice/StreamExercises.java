@@ -1,5 +1,8 @@
 package practice;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.Arrays;
 import java.util.Collections;
@@ -14,64 +17,47 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-public class StreamPr2 {
+public class StreamExercises {
 
 	public static void main(String[] args) {
-		
-//		solution1(args);
-		solution2(args);
-//		solution4(args);
-	
+		String[] argstest = {"abce","heh","kakaaa","le"};
+//		solution1(argstest);
+//		solution2(argstest);
+//		solution3();
+		///?????
+		List<String> arg= Arrays.asList(args);
+		arg.sort(Comparator.comparing(StreamExercises::fileLength).thenComparing(StreamExercises::lineLength));
+		arg.stream().map(str -> str + "       ").forEach(System.out::println);
 	}
 	
-	private static void solution4(String[] args) {
-		List<Integer> s1 = Arrays.asList(1,2,3);
-		List<Integer> s2 = Arrays.asList(4,5,6,7);
-//		List<String> s2 = Arrays.asList("a","b","c","d");
-//		Stream<Integer> s1 = Stream.of(1, 2, 3, 4, 5, 6);
-//		Stream<String> s2 = Stream.of("one", "two","three", "four","five", "six", "seven");
-//		Stream<String> streamA = Stream.of("A", "B", "C");
-//		Stream<String> streamB = Stream.of("Apple", "Banana", "Carrot", "Doughnut");
+	public static long fileLength(String file) {
+		try {
+			return Files.lines(Paths.get(file)).count();
+		} catch(IOException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
 
-		IntStream zipped = zip2stream(s1, s2);
-		zipped.forEach(System.out::println);
-		
-		Map<Integer, Set<String>> collectedMap3 = Stream.of(342, 6354, 2, 4, 6, 533, 1)
-				.collect(Collectors.toMap(
-			      n -> n % 2,
-//                  n -> {
-//                	  Set<String> retval = new HashSet<String>();
-//                	  retval.add("value" + n);
-//                	  return retval;
-//                  },
-			      n -> {
-			    	Set<String> hashSet = new HashSet<>();
-			    	hashSet.add("value" + n);
-			    	return hashSet;
-			      },
-//			      	Set.of("value" + n),
-                  (set1, set2) -> {
-                	  Set<String> retval = new HashSet<>(set1);
-                	  retval.addAll(set2);
-                	  return retval;
-                  }
-                  ));
+	public static long lineLength(String file) {
+		 	try {
+				return Files.lines(Paths.get(file)).findFirst().get().split("\\s+").length;
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		 	return 0;
+	}
 
-		System.out.println(collectedMap3);
-		System.out.println("--------------------");
+	/**
+	 * Make a method that generates a stream of the first n prime numbers.
+	 */
+	private static void solution3() {
+		Function<Integer, int[]> genPrime = n -> IntStream.iterate(2, i -> i + 1)
+							.filter(i -> IntStream.rangeClosed(2, (int) Math.sqrt(i)).noneMatch(num -> i%num == 0))
+							.limit(n).toArray();
 		
-//		Function<Integer, Map.Entry<Integer, String>> toEntry = n -> new AbstractMap.SimpleEntry<>(n * 2, "value" + n);
-////		n -> new AbstractMap.SimpleEntry<>(n * 2, "value" + n);
-//
-//		Function<Function<Integer, Map.Entry<Integer, String>>,
-//			Collector<Integer, Integer, String>> toCollector = fun -> 
-//				Collectors.toMap(
-//						streamVal -> fun.apply(streamVal).getKey(),
-//						streamVal -> fun.apply(streamVal).getValue());
-//				
-//		Map<Integer, String> collectedMap2 = Stream.of(342, 6354, 412)
-//				.collect(toCollector(toEntry));
-		
+		System.out.println(Arrays.toString(genPrime.apply(6))); // to print out int[] array
 	}
 
 	private static IntStream zip2stream(List<Integer> s1, List<Integer> s2) {
@@ -96,7 +82,26 @@ public class StreamPr2 {
 		Function<Predicate<Integer>, Integer> f = handleSol2(args);
 		System.out.println("Sum is:" + f.apply(n -> n%2==0 && n>8));
 		
-		//3rd
+		System.out.println("-----------------------------");
+		// 3rd
+		String[] numbers = {"23","4a","44","10"};
+		Predicate<String> isNumber = x -> {
+			try {
+				Integer.parseInt(x);
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		};
+		Function<Predicate<Integer>, Integer> fu = pred -> {
+			return Stream.of(numbers)
+				.filter(x -> isNumber.test(x))
+				.map(Integer::parseInt) // parse to int
+				.filter(pred)
+				.mapToInt(e->e) // sum() can only understand if covert to int
+				.sum();
+		};
+		System.out.println("sum of even numbers is " + fu.apply(x -> x%2 == 0 && x>8) );
 		
 		
 	}
@@ -122,7 +127,9 @@ public class StreamPr2 {
 
 	//ex1:Print the lengths of the command line arguments in reverse order.
 	private static void solution1(String[] args) {
-		Stream.of(args).forEach(System.out::println);
+		
+//		Stream.of(args).forEach(System.out::println);
+		System.out.println(Arrays.asList(args));
 		// 1st
 		List<Integer> myList = Stream.of(args).map(s->s.length()).collect(Collectors.toList());
 		Collections.reverse(myList);
@@ -140,14 +147,18 @@ public class StreamPr2 {
 			.forEach(System.out::println);
 		
 		System.out.println("-----------------------------");
-		//3rd
+		//3rd ====
+		List<Integer> result = 
 		IntStream
-			.range(0, args.length)
-			.mapToObj(idx -> new SimpleEntry<Integer, String>(-idx, args[idx]))
+			.range(0, args.length) // [0,args.length); or rangeClosed() [inclu,inclu] => same for(int i, to i < args.length)
+			.mapToObj(idx -> new SimpleEntry<Integer, String>(-idx, args[idx])) //simpleEntry like map
 			.sorted(Comparator.comparing(SimpleEntry::getKey))
+//			.sorted((k1,k2) -> k1.getKey() - k2.getKey())
 			// remove the negative idx
 			.map(SimpleEntry::getValue)
 			.map(String::length)
-			.forEach(System.out::println);
+//			.forEach(System.out::println);
+			.collect(Collectors.toList());
+		System.out.println(result);
 	}
 }

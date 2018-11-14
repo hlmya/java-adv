@@ -16,7 +16,7 @@ import java.util.stream.Stream;
 
 // javac Streams.java
 // java Streams fdsa grew hrefes tegwa zgsfdzjhfxdbgahus
-public class Streams {
+public class Streams_teacher {
 	public static void main7(String[] args) {
 //		Make a method that generates a stream of the first n prime numbers.
 		primeGen(9).forEach(System.out::println);
@@ -66,7 +66,7 @@ public class Streams {
 //		that are greater than (whichever number)
 //		from the command line arguments.
 		return pred -> Stream.of(args)
-			.map(Streams::getOptionalNumber)
+			.map(Streams_teacher::getOptionalNumber)
 			.filter(Optional::isPresent)
 			.map(Optional::get)
 			.filter(pred)

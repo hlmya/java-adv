@@ -1,4 +1,4 @@
-package coreservlets_lambda1;
+package coreservlets_lambda;
 
 import java.util.ArrayList;
 import java.util.Arrays;

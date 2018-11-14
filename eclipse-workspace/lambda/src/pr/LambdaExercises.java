@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 enum WeekDay {
 	MON, TUE, WED, THU, FRI, SAT, SUN
 }
-public class JavaExercises {
+public class LambdaExercises {
 
 	public static void main(String[] args) {
 		
@@ -55,7 +55,7 @@ public class JavaExercises {
 		String[] texts = {"a","bxxd","dsaxfdsa", "fwegse","aaabce","h"};
 		//Arrays.asList(texts).forEach(System.out::println); //print if texts is String[]
 		
-		Arrays.sort(texts, Comparator.comparing(JavaExercises::countCharsInString));
+		Arrays.sort(texts, Comparator.comparing(LambdaExercises::countCharsInString));
 		Arrays.asList(texts).forEach(System.out::println);
 		System.out.println("===");
 		//OR

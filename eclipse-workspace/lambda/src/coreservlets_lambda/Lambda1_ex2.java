@@ -1,4 +1,4 @@
-package coreservlets_lambda1;
+package coreservlets_lambda;
 /** An interface for which lambdas can be used. See StringUtils for
  *  examples of USING this interface in code, which are the same
  *  as in Java 7. But, see IsBetterExamples for examples of PASSING IN
