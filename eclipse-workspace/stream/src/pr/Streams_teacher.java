@@ -1,4 +1,4 @@
-package practice;
+package pr;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.Arrays;

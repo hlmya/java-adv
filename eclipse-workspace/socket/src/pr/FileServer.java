@@ -3,6 +3,7 @@ package pr;
 import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -10,6 +11,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class FileServer {
@@ -28,6 +30,15 @@ public class FileServer {
 			// Receive msg from client
 			String fileName = dis.readUTF();
 			
+			/* way 1 to open and read file
+			Scanner input = new Scanner(new File(fileName + ".txt"));
+	        //Read file
+	        while (input.hasNext()) {
+	            String word = input.next();
+	            content.add(word);
+	        } */
+			
+			/*way 2 to open and read file*/
 			// Open the file
 			FileInputStream fstream = new FileInputStream(fileName);
 			BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
@@ -42,7 +53,8 @@ public class FileServer {
 			}
 	
 			//Close the input stream
-			br.close();
+			br.close(); 
+			
 			
 			// convert ArrayList to String and send to client
 			dos.writeUTF(content.stream().map(Object::toString).collect(Collectors.joining("\n")));

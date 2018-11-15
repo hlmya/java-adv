@@ -23,7 +23,7 @@ public class FileClient {
 			
 		){
 			//Send object/Data to server
-			dos.writeUTF("textfile.txt");
+			dos.writeUTF("textfile");
 			dos.flush();
 			
 //			//Receive msg from server
