@@ -25,7 +25,7 @@ public class Main {
 		Supplier<WeekDay> weekLam = () -> WeekDay.values()[(idx[0]++) % WeekDay.values().length];
 	
 		Supplier<WeekDay> weekLam2 = new Supplier<WeekDay>(){
-			int idx = 0;
+			int idx = -1;
 			int len = WeekDay.values().length;
 			@Override
 			public WeekDay get() {
@@ -55,7 +55,7 @@ public class Main {
 			
 		};
 		
-		Supplier<WeekDay> sunWeek = weeker.apply(WeekDay.Mon);
+		Supplier<WeekDay> sunWeek = weeker.apply(WeekDay.Tue);
 		for (int i = 0; i < 10; i++) {
 			System.out.println(sunWeek.get());
 		}
@@ -72,14 +72,17 @@ public class Main {
 		//===============
 		System.out.println("===============");
 		
-		BiFunction<WeekDay, WeekDay, Boolean> f4 = new BiFunction<Main.WeekDay, Main.WeekDay, Boolean>() {
-			
-			
-			public Boolean apply(WeekDay t, WeekDay u) {
-				
-				return t.compareTo(u) < 0;
-			}
-		};
+//		BiFunction<WeekDay, WeekDay, Boolean> f4 = new BiFunction<Main.WeekDay, Main.WeekDay, Boolean>() {
+//			
+//			
+//			public Boolean apply(WeekDay t, WeekDay u) {
+//				
+//				return t.compareTo(u) < 0;
+//			}
+//		};
+		
+		BiFunction<WeekDay, WeekDay, Boolean> f4 = (d1, d2) -> d1.compareTo(d2) < 0;
+		
 		System.out.println("d1 is earlier?" + f4.apply(WeekDay.Mon,WeekDay.Fri));
 				
 

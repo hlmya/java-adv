@@ -7,27 +7,91 @@ import java.util.AbstractMap.SimpleEntry;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public class StreamExercises {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		String[] argstest = {"abce","heh","kakaaa","le"};
 //		solution1(argstest);
 //		solution2(argstest);
 //		solution3();
+		
 		///?????
-		List<String> arg= Arrays.asList(args);
-		arg.sort(Comparator.comparing(StreamExercises::fileLength).thenComparing(StreamExercises::lineLength));
-		arg.stream().map(str -> str + "       ").forEach(System.out::println);
+//		List<String> arg= Arrays.asList(args);
+//		arg.sort(Comparator.comparing(StreamExercises::fileLength).thenComparing(StreamExercises::lineLength));
+//		arg.stream().map(str -> str + "       ").forEach(System.out::println);
+		
+//		generateAlphabet();
+		
+		readFile();
+	}
+
+	/**
+	 * @throws IOException
+	 */
+	private static void readFile() throws IOException {
+		// List unique words
+		Files.lines(Paths.get("a.txt"))
+        .map(line -> line.split("\\s+")) // Stream<String[]>
+        .flatMap(Arrays::stream)// Stream<String>
+        .distinct() // Stream<String>
+        .forEach(System.out::println);
+		
+		//count lines
+		long counter = Files.lines(Paths.get("a.txt"))
+        .map(line -> "hI:" + line)
+        .count();
+		
+		System.out.println("Number lines:" + counter);
+	}
+
+	/**
+	 * 
+	 */
+	private static void generateAlphabet() {
+		// Generate alphabet
+		Supplier<Supplier<String>> alphabetSupplierGen = () -> new Supplier<String>() {
+			String txt = "";
+			char currentChar = 'A';
+
+			@Override
+			public String get() {
+				txt += currentChar;
+				currentChar += 1;
+				return txt;
+			}
+		};
+		
+		Stream.generate(alphabetSupplierGen.get())
+		.limit(10)
+		.forEach(System.out::println);
+		
+		// put alphabet into a map
+		Stream.generate(alphabetSupplierGen.get())
+		.map(new Function<String, Map<Integer, String>>() {
+			int idx = 0;
+
+			@Override
+			public Map<Integer, String> apply(String txt) {
+				Map<Integer,String> map = new HashMap<>();
+				++idx;
+				map.put(idx, txt);
+				return map;
+			}
+		})
+		.limit(26)
+		.forEach(System.out::println);
 	}
 	
 	public static long fileLength(String file) {
@@ -148,6 +212,8 @@ public class StreamExercises {
 		
 		System.out.println("-----------------------------");
 		//3rd ====
+		// InStream can be used like a loop
+		
 		List<Integer> result = 
 		IntStream
 			.range(0, args.length) // [0,args.length); or rangeClosed() [inclu,inclu] => same for(int i, to i < args.length)
@@ -159,6 +225,7 @@ public class StreamExercises {
 			.map(String::length)
 //			.forEach(System.out::println);
 			.collect(Collectors.toList());
+		
 		System.out.println(result);
 	}
 }

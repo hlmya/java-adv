@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
 import java.util.TreeSet;
@@ -24,11 +25,6 @@ public class MyStream_draft {
 //		Object object = Stream.of().max((e1, e2) -> 1).get();
 //		System.out.println(object);
 
-		String[] words = {"12", "211", "311111"};
-		Stream.of(words).map(arg -> arg.length()).forEach(System.out::println);
-
-		Stream.of(words).mapToInt(arg -> arg.length()).forEach(System.out::println);
-
 //		// stack, push and pop
 //		Function<Stream<Integer>, Stream<Integer>> reverseFiniteStream = stream -> {
 //			Stack<Integer> stack = stream.collect(Collectors.toCollection(Stack::new));
@@ -41,6 +37,14 @@ public class MyStream_draft {
 //		};
 //
 //		reverseFiniteStream.apply(Stream.of(words).map(arg -> arg.length())).forEach(System.out::println);
+		Stream<Integer> nums = Stream.of(3,4,1,5,7);
+		List<Integer> a = nums.filter(s -> s < 7).sorted().collect(Collectors.toList()); //expected: 1,3,4,5
+		System.out.println(a.stream().map(s -> s + "").reduce((s1,s2) -> s1 + "," + s2).orElse(""));
+		//a.stream().map(s -> s + "").reduce("",(s1,s2) -> s1 + "," + s2);
+		
+		Stream<String> words = Stream.of("a","b","c","d","a","b");
+		String[] arrayW = words.distinct().toArray(String[]::new); // distinct: return unique elements
+		Stream.of(arrayW).forEach(System.out::println);
 	}
 
 	/**

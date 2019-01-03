@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.BiFunction;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Lecture_pr {
 
@@ -15,6 +17,19 @@ public class Lecture_pr {
 //		example1();
 		
 //		example2();	
+		
+//		example3();
+		
+		Map<Integer, String> collectedMap = Stream.of(342, 6354, 412)
+				.collect(Collectors.toMap(n -> n * 2, n -> "value" + n));
+		System.out.println(collectedMap);
+
+	}
+
+	/**
+	 * 
+	 */
+	private static void example3() {
 		String[] texts = { "abc", "fdhsjfs", "fdsfaa" };
 		BiFunction<Integer, Integer, Integer> f4 = (from, to) -> {
 			int retval = 0;
@@ -30,7 +45,6 @@ public class Lecture_pr {
 		System.out.println("Total length = " + f4.apply(0, 2));
 		System.out.println("Total length = " + f4.apply(1, 2));
 		System.out.println("Total length = " + f4.apply(1, 1));
-
 	}
 
 	/*
